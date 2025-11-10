@@ -18,15 +18,15 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        math_score = float(request.form['math_score'])
-        reading_score = float(request.form['reading_score'])
-        writing_score = float(request.form['writing_score'])
+        math = float(request.form['math_score'])
+        reading = float(request.form['reading_score'])
+        writing = float(request.form['writing_score'])
 
-        features = np.array([[math_score, reading_score, writing_score]])
+        features = np.array([[math, reading, writing]])
         scaled = scaler.transform(features)
         prediction = model.predict(scaled)[0]
 
-        return render_template('index.html', prediction_text=f"Predicted Group: {prediction}")
+        return render_template('index.html', prediction_text=f'Predicted Group: {prediction}')
     except Exception as e:
         return str(e)
 
